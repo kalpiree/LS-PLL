@@ -29,7 +29,7 @@
   <code>python preprocessing.py</code>
   </pre>
 
-  <p>This command will generate the required dataset for training and testing.</p>
+  <p>This command will generate the required numpy files for training and testing using four different standard datasets, i.e., CIFAR-10, CIFAR-100, Fashion-MNIST, and Kuzushiji-MNIST.</p>
 
   <h3>Step 2: Calculate Loss and Accuracy</h3>
 
@@ -37,7 +37,7 @@
   <code>python main_.py</code>
   </pre>
 
-  <p>Execute this command to calculate the training loss and testing accuracy using the LS-PLL algorithm and save the model weights and parameters.<b> ResNet-18 </b> is used for CIFAR-10 and CIFAR-100 experimentation and <b> LeNet-5 </b> is used for Fashion-MNIST and Kuzushiji-MNIST experimentation.</p>
+  <p>Execute this command to calculate the training loss and testing accuracy using the LS-PLL algorithm and save the model weights and parameters.<b> ResNet-18 </b> is used for CIFAR-10 and CIFAR-100 experimentation and <b> LeNet-5 </b> is used for Fashion-MNIST and Kuzushiji-MNIST experimentation. The input files are generated from Step 1</p>
 
   <h3>Step 3: Generate t-SNE plots</h3>
 
@@ -45,7 +45,7 @@
   <code>python TSEN.py</code>
   </pre>
 
-  <p>Execute this command to generate the t-SNE plots.</p>
+  <p>Execute this command to generate the t-SNE plots. The trained model parameters are used from step 2 and the input files are used from Step 1</p>
  
   
 
