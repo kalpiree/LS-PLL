@@ -34,7 +34,7 @@
   <h3>Step 2: Calculate Loss and Accuracy</h3>
 
   <pre>
-  <code>python main_.py</code>
+  <code>python main.py</code>
   </pre>
 
   <p>Execute this command to calculate the training loss and testing accuracy using the LS-PLL algorithm and save the model weights and parameters.<b> ResNet-18 </b> is used for CIFAR-10 and CIFAR-100 experimentation and <b> LeNet-5 </b> is used for Fashion-MNIST and Kuzushiji-MNIST experimentation. The input files are generated from Step 1</p>
