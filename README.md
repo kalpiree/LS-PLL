@@ -1,46 +1,54 @@
-# When Does Label Smoothing Help??? pytorch implementation
 
-paper : https://arxiv.org/abs/1906.02629
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
 
-<hr>
+  <h1>LS-PLL Algorithm Implementation</h1>
 
-Cross Entropy   : **python main.py --ce** -> **python TSNE.py --ce**
+  <p>This repository contains the implementation of the LS-PLL (Label Smoothing for Partial Labelled dataset) algorithm.</p>
 
-Label Smoothing : **python main.py** -> **python TSNE.py**
+  <h2>Usage</h2>
 
-<hr>
+  <ol>
+    <li>Run <code>preprocessing.py</code> to generate the dataset.</li>
+    <li>Run <code>main.py</code> to calculate the training loss and testing accuracy.</li>
+    <li>Run <code>TSEN.py</code> to generate the t-SNE plots using the model weights and parameters saved in the above step.</li>
+  </ol>
 
-simple Label Smoothing implementation code. 
+  <h2>Instructions</h2>
 
-```python
+  <p>Follow the steps below to use the LS-PLL algorithm:</p>
 
-class LabelSmoothingCrossEntropy(nn.Module):
-    def __init__(self):
-        super(LabelSmoothingCrossEntropy, self).__init__()
-    def forward(self, x, target, smoothing=0.1):
-        confidence = 1. - smoothing
-        logprobs = F.log_softmax(x, dim=-1)
-        nll_loss = -logprobs.gather(dim=-1, index=target.unsqueeze(1))
-        nll_loss = nll_loss.squeeze(1)
-        smooth_loss = -logprobs.mean(dim=-1)
-        loss = confidence * nll_loss + smoothing * smooth_loss
-        return loss.mean()
-```
-```python
-from utils import LabelSmoothingCrossEntropy
+  <h3>Step 1: Generate Dataset</h3>
 
-criterion = LabelSmoothingCrossEntropy()
-loss = criterion(outputs, targets)
-loss.backward()
-optimizer.step()
-```
-<hr>
+  <pre>
+  <code>python preprocessing.py</code>
+  </pre>
+
+  <p>This command will generate the required dataset for training and testing.</p>
+
+  <h3>Step 2: Calculate Loss and Accuracy</h3>
+
+  <pre>
+  <code>python main_.py</code>
+  </pre>
+
+  <p>Execute this command to calculate the training loss and testing accuracy using the LS-PLL algorithm and save the model weights and parameters.<b> ResNet-18 </b> is used for CIFAR-10 and CIFAR-100 experimentation and <b> LeNet-5 </b> is used for Fashion-MNIST and Kuzushiji-MNIST experimentation.</p>
+
+  <h3>Step 3: Generate t-SNE plots</h3>
+
+  <pre>
+  <code>python TSEN.py</code>
+  </pre>
+
+  <p>Execute this command to generate the t-SNE plots.</p>
+ 
+  
 
 
-Visualized using TSNE algorithm with CIFAR10 Dataset.  "When Does Label Smoothing Help ???" As mentioned, you can use label smoothing to classify classes more clearly.
-
-<div>
-<img src='./assets/TSNE_CrossEntropy.png' width="45%" style="float:left" />
-<img src='./assets/TSNE_LabelSmoothing.png' width="45%" />
-</div>
-
+</body>
+</html>
