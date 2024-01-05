@@ -1,50 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
+# When Does Label Smoothing Help??? pytorch implementation
 
-  <h1>LS-PLL Algorithm Implementation</h1>
+paper : https://arxiv.org/abs/1906.02629
 
-  <p>This repository contains the implementation of the LS-PLL (Label Smoothing for Partial Labelled dataset) algorithm.</p>
+<hr>
 
-  <h2>Usage</h2>
+Cross Entropy   : **python main.py --ce** -> **python TSNE.py --ce**
 
-  <ol>
-    <li>Run <code>preprocessing_og_.py</code> to generate the dataset.</li>
-    <li>Run <code>main__.py</code> to calculate the training loss and testing accuracy.</li>
-  </ol>
+Label Smoothing : **python main.py** -> **python TSNE.py**
 
-  <h2>Instructions</h2>
+<hr>
 
-  <p>Follow the steps below to use the LS-PLL algorithm:</p>
+simple Label Smoothing implementation code. 
 
-  <h3>Step 1: Generate Dataset</h3>
+```python
 
-  <pre>
-  <code>python preprocessing_og_.py</code>
-  </pre>
+class LabelSmoothingCrossEntropy(nn.Module):
+    def __init__(self):
+        super(LabelSmoothingCrossEntropy, self).__init__()
+    def forward(self, x, target, smoothing=0.1):
+        confidence = 1. - smoothing
+        logprobs = F.log_softmax(x, dim=-1)
+        nll_loss = -logprobs.gather(dim=-1, index=target.unsqueeze(1))
+        nll_loss = nll_loss.squeeze(1)
+        smooth_loss = -logprobs.mean(dim=-1)
+        loss = confidence * nll_loss + smoothing * smooth_loss
+        return loss.mean()
+```
+```python
+from utils import LabelSmoothingCrossEntropy
 
-  <p>This command will generate the required dataset for training and testing.</p>
+criterion = LabelSmoothingCrossEntropy()
+loss = criterion(outputs, targets)
+loss.backward()
+optimizer.step()
+```
+<hr>
 
-  <h3>Step 2: Calculate Loss and Accuracy</h3>
 
-  <pre>
-  <code>python main_.py</code>
-  </pre>
+Visualized using TSNE algorithm with CIFAR10 Dataset.  "When Does Label Smoothing Help ???" As mentioned, you can use label smoothing to classify classes more clearly.
 
-  <p>Execute this command to calculate the training loss and testing accuracy using the LS-PLL algorithm.</p>
-
-  <h2>Contributing</h2>
-
-  <p>Contributions are welcome! If you would like to contribute to the project, please follow the guidelines in the <a href="CONTRIBUTING.md">CONTRIBUTING.md</a> file.</p>
-
-  <h2>License</h2>
-
-  <p>This project is licensed under the UTS Sydney License - see the <a href="LICENSE">LICENSE</a> file for details.</p>
-
-</body>
-</html>
+<div>
+<img src='./assets/TSNE_CrossEntropy.png' width="45%" style="float:left" />
+<img src='./assets/TSNE_LabelSmoothing.png' width="45%" />
+</div>
 
