@@ -144,7 +144,6 @@ def train(epoch, data_tuples,train_losses):
 
 
 
-
 test_accuracy_file = 'test_accuracy_0_e_1_ls_cl_3.npy'                                          #create the test accuracy numpy file
 test_accuracy =[]
 
@@ -187,10 +186,10 @@ def test(epoch,test_accuracy):
     print("Test accuracy value ->",test_accuracy)
     if acc > best_acc:
         best_acc = acc
-    print('Saving..')
-    if not os.path.isdir('checkpoint'):
-        os.mkdir('checkpoint')
-    save_model(net, save_path)
+        print('Saving..')
+        if not os.path.isdir('checkpoint'):
+            os.mkdir('checkpoint')
+        save_model(net, save_path)
     
     print("Best accuracy is:",best_acc)
 
